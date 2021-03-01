@@ -1,0 +1,146 @@
+*{
+  background: linear-gradient(15deg,#fbab43a6 50%, #439cfbe1 50.1%) no-repeat fixed;
+    padding: .6%;
+}
+.heading{
+    font-size: 280%;
+    position: relative;
+}
+.loadMore{
+  background-color: black;
+  color: white;
+}
+input{
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    background-color: white;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 30%;
+    padding: 8px;
+    float: right;
+
+}
+button{
+    color: white;
+    float: right;
+    padding: 8px;
+    background-color: black;
+    border: 2px solid white;
+}
+.title{
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bolder;
+    display: block;
+    text-align: center;
+    text-decoration: underline;
+}h1 {
+  font-size: 5.9vw;
+}
+h2 {
+  font-size: 3.0vh;
+}
+p {
+  font-size: 2vmin;
+}
+
+img{
+    border: 3px solid white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30vw;
+    height: 40vh;
+    border-radius: 10px;
+}
+hr{
+    padding: 0.1px;
+    height:5px;
+    border-width:0;
+    background-color:red
+}
+
+.hide {
+    display: none;
+}
+
+h1{
+    font-size: 150%;
+}
+.content{
+    box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 12px;
+}
+.loading{
+    font-size: 120%;
+}
+
+.topnav {
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .topnav a {
+    background: none;
+    float: left;
+    display: block;
+    color: #000000;
+    text-align: center;
+    padding: 8px;
+    text-decoration: none;
+    font-size:  40%;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+  }
+  
+  .topnav a.active {
+    background-color: #a74b00;
+    color: white;
+  }
+  
+  .topnav .icon {
+    display: none;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .topnav a:not(:first-child) {display: none;}
+    .topnav a.icon {
+      float: right;
+      display: block;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .topnav.responsive {position: relative;}
+    .topnav.responsive .icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .topnav.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+  }
+
+.content a{
+    background: none;
+}
+
+.footer, .footer a{
+
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 1%;
+  text-align: center;
+  display: block;
+  position: relative;
+  background-color: black;
+  color: white;
+  text-align: center;
+
+}
