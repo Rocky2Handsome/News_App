@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
+import {FacebookShareButton,TwitterShareButton,WhatsappShareButton} from "react-share";
+let lang= "en";
 
 const App = () => {
   const [news, setNews] = useState([]);
-  var apiKey = `db01e884d61f4f908c66f1200c039fc4                                                                                                `;
-  const [searchQuery, setSearchQuery] = useState(["Trending"]);
+  var apiKey = `db01e884d61f4f908c66f1200c039fc4`;
+  const [searchQuery, setSearchQuery] = useState(["Trending World Wide"]);
   const [loading, setLoading] = useState(false);
-  //const [url, setUrl] = useState([`http://api.mediastack.com/v1/news?access_key=c35fdbfb0c5a2e16c400bbd2dbd3bca5&keywords=spiderman&sort=published_desc&limit=50&languages=en`])
   const [url, setUrl] = useState([
-    `http://newsapi.org/v2/everything?q=Trending&language=en&sortBy=publishedAt&apiKey=${apiKey}`,
+    `http://newsapi.org/v2/everything?q=Trending World Wide&language=${lang}&sortBy=publishedAt&apiKey=${apiKey}`,
   ]);
 
   const fetchNews = () => {
     setLoading(true);
     fetch(url)
       .then((res) => res.json())
-      .then((data) => {
+      .then((data) => { 
+        if(data.articles.length===0){
+          alert("No news found. Please check spelling or search something else."); 
+        }
+        else{
         console.log(data);
-        setNews(data.articles);
+        setNews(data.articles); 
         setLoading(false);
+        }
       })
       .catch((error) => console.log(error));
-    //console.clear();
   };
 
   useEffect(() => {
@@ -34,10 +39,14 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //setUrl(`api.mediastack.com/v1/news?access_key=${apiKey}&keywords=${searchQuery}&sort=published_desc&limit=50`)
-    setUrl(
+    if(!searchQuery.trim()){
+      alert("Please Enter Somthing to search");
+    }
+    
+    else{
+   setUrl(
       `http://newsapi.org/v2/everything?q=${searchQuery}&language=en&sortBy=publishedAt&apiKey=${apiKey}`
-    );
+    );}
   };
 
   const showLoading = () => (loading ? <h2> Loading.... </h2> : "");
@@ -46,12 +55,14 @@ const App = () => {
     <form onSubmit={handleSubmit}>
       <button>Search</button>
       <input type="text" value={searchQuery} onChange={handleChange} />
+      
 
       <div className="topnav" id="myTopnav">
-        <a className="active">Home</a>
-        <a onClick={() => changeContent("Sports")}>Sports</a>
-        <a onClick={() => changeContent("World")}>World</a>
-        <a onClick={() => changeContent("Tech")}>Tech</a>
+        <a className="btn" onClick={() => changeContent("Trending World News")}>Home</a>
+        <a className="btn" onClick={() => changeContent("Sports")}>Sports</a>
+        <a className="btn" onClick={() => changeContent("World")}>World</a>
+        <a className="btn" onClick={() => changeContent("Tech")}>Tech</a>
+        
         <a className="icon" onClick={myFunction}>
           <i className="fa fa-bars"></i>
         </a>
@@ -85,12 +96,64 @@ const App = () => {
     setSearchQuery(value);
   };
 
+  // const activeClass = ()=> {
+  //   var header = document.getElementById("myTopnav");
+  //   var btns = header.getElementsByClassName("btn");
+  //   for (var i = 0; i < btns.length; i++) {
+  //     console.log(btns);
+  //     btns[i].addEventListener("click", function() {
+  //     var current = document.getElementsByClassName("active");
+  //     current[0].className = current[0].className.replace(" active", "");
+  //     this.className += " active";
+  //     });
+  //   }
+  // };
+
+  const changeLang = (bhasha) => {
+    setUrl(
+      `http://newsapi.org/v2/everything?q=${searchQuery}&language=${bhasha}&sortBy=publishedAt&apiKey=${apiKey}`
+    );
+    console.log(bhasha,url);
+  }
+
+
+
+
+
   return (
     <div className="body">
-      <h2 className="heading">
+        <div className="dropdown">
+          <button className="dropbtn">Country</button>
+            <div className="dropdown-content">
+              <a >India</a>
+              <a href="#">USA</a>
+              <a href="#">China</a>
+            </div>
+        </div>
+      <div className="dropdown">
+        <button className="dropbtn">Language</button>
+          <div className="dropdown-content">
+            <a onClick={() => changeLang("en")}>English</a>
+            <a onClick={() => changeLang("hi")}>Hindi</a>
+            <a onClick={() => changeLang("fr")}>France</a>
+          </div>
+      </div>
+      <div className="heading">
         Latest News
+        <div className="social">
+        <FacebookShareButton url={url} className="share">
+         <i className="fa fa-facebook"></i>
+        </FacebookShareButton><br />
+        <TwitterShareButton url={url} className="share">
+        <i className="fa fa-twitter"></i>
+        </TwitterShareButton><br />
+        <WhatsappShareButton url={url} className="share">
+        <i className="fa fa-whatsapp"></i>
+        </WhatsappShareButton><br />
+        </div>
         <div className="search">{searchForm()}</div>
-      </h2>
+      </div>
+
       <div className="loading">{showLoading()}</div>
       <div className={`content ${loading ? "hide" : ""}`}>
         {news.map((n, i) => {
@@ -102,9 +165,9 @@ const App = () => {
               On: {date} <br />
               <img src={n.urlToImage} />
               <br />
-              <div className="desc">{n.description}</div>
+              <div className="desc">{n.description.toString()}</div>
               <br />
-              {n.content}
+              {n.content.toString()}
               <a href={n.url} target="_blank">
                 Read More
               </a>
