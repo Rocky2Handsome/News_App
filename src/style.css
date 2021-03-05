@@ -1,5 +1,5 @@
 *{
-  background: linear-gradient(15deg,#fbab43a6 50%, #439cfbe1 50.1%) no-repeat fixed;
+  background: linear-gradient(15deg,#fcbe6da6 50%, #69b1fde1 50.1%) no-repeat fixed;
     padding: .6%;
 }
 .heading{
@@ -17,7 +17,7 @@ input{
     outline: none;
     border: none;
     width: 30%;
-    padding: 8px;
+    padding: 10px;
     float: right;
 
 }
@@ -29,6 +29,7 @@ button{
     border: 2px solid white;
 }
 .title{
+  word-wrap: break-word;
     padding: 15px;
     border-radius: 10px;
     font-weight: bolder;
@@ -51,7 +52,7 @@ img{
     margin-left: auto;
     margin-right: auto;
     width: 30vw;
-    height: 40vh;
+    height: auto;
     border-radius: 10px;
 }
 hr{
@@ -91,6 +92,9 @@ h1{
     text-decoration: none;
     font-size:  40%;
   }
+  .desc{
+    word-wrap: break-word;
+  }
   
   .topnav a:hover {
     background-color: #ddd;
@@ -103,11 +107,13 @@ h1{
   
   .topnav .icon {
     display: none;
+    
   }
   
   @media screen and (max-width: 600px) {
     .topnav a:not(:first-child) {display: none;}
     .topnav a.icon {
+      background: transparent;
       float: right;
       display: block;
     }
@@ -144,3 +150,63 @@ h1{
   text-align: center;
 
 }
+
+.social{
+  position: relative;
+  float: right;
+  font-size: 15px;
+}
+.social .fa:hover{
+  color: red;
+}
+
+.admin{
+  float: right;
+}
+.admin a{
+  
+  text-decoration: none;
+}
+
+.topNav{
+  font-size: 80%;
+  cursor: pointer;
+  padding: 0px;
+}
+
+
+
+
+
+.dropbtn {
+  background-color: #00fa08;
+  color: white;
+  padding: 2px;
+  font-size: 100%;
+  border: none;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
