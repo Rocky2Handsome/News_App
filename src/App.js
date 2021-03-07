@@ -1,27 +1,40 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import {FacebookShareButton,TwitterShareButton,WhatsappShareButton} from "react-share";
-let lang= "en";
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "./components/globalStyles";
+import { button,lightTheme, darkTheme } from "./components/Theme";
+
 
 const App = () => {
   const [news, setNews] = useState([]);
-  var apiKey = `db01e884d61f4f908c66f1200c039fc4`;
+  const apiKey=([`7e55596312e7463a88fafc09064da1c7`]);
   const [searchQuery, setSearchQuery] = useState(["Trending World Wide"]);
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState([
-    `http://newsapi.org/v2/everything?q=Trending World Wide&language=${lang}&sortBy=publishedAt&apiKey=${apiKey}`,
+    `http://newsapi.org/v2/everything?q=Trending World Wide&sortBy=publishedAt&apiKey=${apiKey}`,
   ]);
+  let newapi="7e55596312e7463a88fafc09064da1c7";
+ 
+
+
+  const [theme, setTheme] = useState('light');
+  const themeToggler = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light')
+}
+
+
 
   const fetchNews = () => {
     setLoading(true);
     fetch(url)
       .then((res) => res.json())
       .then((data) => { 
+        
         if(data.articles.length===0){
           alert("No news found. Please check spelling or search something else."); 
         }
         else{
-        console.log(data);
         setNews(data.articles); 
         setLoading(false);
         }
@@ -45,7 +58,7 @@ const App = () => {
     
     else{
    setUrl(
-      `http://newsapi.org/v2/everything?q=${searchQuery}&language=en&sortBy=publishedAt&apiKey=${apiKey}`
+      `http://newsapi.org/v2/everything?q=${searchQuery}&sortBy=publishedAt&apiKey=${apiKey}`
     );}
   };
 
@@ -84,14 +97,14 @@ const App = () => {
     morenews += 20;
     e.preventDefault();
     setUrl(
-      `http://newsapi.org/v2/everything?q=${searchQuery}&language=en&sortBy=publishedAt&apiKey=${apiKey}&pageSize=${morenews}`
+      `http://newsapi.org/v2/everything?q=${searchQuery}&sortBy=publishedAt&apiKey=${apiKey}&pageSize=${morenews}`
     );
-    console.log("More Articles Loaded");
+    console.log("Successfully Loaded More Articles");
   };
 
   const changeContent = (value) => {
     setUrl(
-      `http://newsapi.org/v2/everything?q=${value}&language=en&sortBy=publishedAt&apiKey=${apiKey}`
+      `http://newsapi.org/v2/everything?q=${value}&sortBy=publishedAt&apiKey=${apiKey}`
     );
     setSearchQuery(value);
   };
@@ -109,88 +122,99 @@ const App = () => {
   //   }
   // };
 
-  const changeLang = (bhasha) => {
-    setUrl(
-      `http://newsapi.org/v2/everything?q=${searchQuery}&language=${bhasha}&sortBy=publishedAt&apiKey=${apiKey}`
-    );
-    console.log(bhasha,url);
+  const changeColor= (color1, color2) =>{
+    console.log("waah");
+    var allElements = document.getElementsByTagName("*");
+    for (var i = 0, len = allElements.length; i < len; i++) {
+      var element = allElements[i];
+      element.style.background=`linear-gradient(15deg, ${color1} 50%, ${color2} 50.1%) no-repeat fixed`;
+    }
   }
+  
 
 
 
 
 
   return (
-    <div className="body">
-        <div className="dropdown">
-          <button className="dropbtn">Country</button>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <>
+      <GlobalStyles/>
+      <div className="body">
+      <button onClick={themeToggler}>Switch Theme</button>
+        
+
+          <div className="dropdown">
+            <button>Color</button>
             <div className="dropdown-content">
-              <a >India</a>
-              <a href="#">USA</a>
-              <a href="#">China</a>
+              <button className="btn1" onClick={() => changeColor("#ff6e7f", "#bfe9ff")}>Hodrom</button>
+              <button className="btn2" onClick={() => changeColor("lightgreen","#3b8d99")}>Greenary</button>
+              <button className="btn3" onClick={() => changeColor("#654ea3", "#eaafc8")}>KeyMeh</button>
+              <button className="btn3" onClick={() => changeColor("#659999", "#f4791f")}>Metapolis</button>
+              <button className="btn3" onClick={() => changeColor("#2980B9", "#6DD5FA")}>Sky</button>
+              <button className="btn3" onClick={() => changeColor("#000000", "#EB5757")}>Darco</button>
             </div>
+          </div>
+        
+          
+        <div>
+          <div className="heading">
+          Latest News<img src="https://www.animatedimages.org/data/media/152/animated-newspaper-image-0007.gif" border="0" alt="animated-newspaper-image-0007" />
+          </div>
+          
+          <div className="social">
+          <FacebookShareButton url={url} className="share">
+          <i className="fa fa-facebook"></i>
+          </FacebookShareButton><br />
+          <TwitterShareButton url={url} className="share">
+          <i className="fa fa-twitter"></i>
+          </TwitterShareButton><br />
+          <WhatsappShareButton url={url} className="share">
+          <i className="fa fa-whatsapp"></i>
+          </WhatsappShareButton><br />
+          </div>
+          <div className="search">{searchForm()}</div>
         </div>
-      <div className="dropdown">
-        <button className="dropbtn">Language</button>
-          <div className="dropdown-content">
-            <a onClick={() => changeLang("en")}>English</a>
-            <a onClick={() => changeLang("hi")}>Hindi</a>
-            <a onClick={() => changeLang("fr")}>France</a>
+
+        <div className="loading">{showLoading()}</div>
+        <div className={`content ${loading ? "hide" : ""}`}>
+          {news.map((n, i) => {
+            let date = new Date(n.publishedAt).toLocaleDateString("en-IN");
+            return (
+              <div className="data"  key={i}>
+                <div className="title">{n.title}</div> <br />
+                By: {n.author} <br />
+                On: {date} <br />
+                <img src={n.urlToImage} />
+                <br />
+                <div className="desc">{n.description}</div>
+                <br />
+                {n.content}
+                <a href={n.url} target="_blank" style={{backgroundColor:"transparent"}}>
+                  Read More
+                </a>
+                <br />
+                <hr></hr>
+            </div>
+            );
+          })}
+        </div>
+        
+        <div className={`load ${loading ? "hide" : ""}`} >
+          <form onSubmit={handleSubmit2}>
+            <input className="loadMore"
+              type="submit"
+              value="Load More Articles"/>
+          </form>
+          <br />
+        </div>
+
+        <div className={`${loading ? "hide" : ""}`} >
+          <p className="footer">Designed and created by <a href="https://allaboutshivapandey.web.app/" target="_blank">Shiva Pandey</a></p>
           </div>
       </div>
-      <div className="heading">
-        Latest News
-        <div className="social">
-        <FacebookShareButton url={url} className="share">
-         <i className="fa fa-facebook"></i>
-        </FacebookShareButton><br />
-        <TwitterShareButton url={url} className="share">
-        <i className="fa fa-twitter"></i>
-        </TwitterShareButton><br />
-        <WhatsappShareButton url={url} className="share">
-        <i className="fa fa-whatsapp"></i>
-        </WhatsappShareButton><br />
-        </div>
-        <div className="search">{searchForm()}</div>
-      </div>
-
-      <div className="loading">{showLoading()}</div>
-      <div className={`content ${loading ? "hide" : ""}`}>
-        {news.map((n, i) => {
-          let date = new Date(n.publishedAt).toLocaleDateString("en-IN");
-          return (
-            <div className="data"  key={i}>
-              <div className="title">{n.title}</div> <br />
-              By: {n.author} <br />
-              On: {date} <br />
-              <img src={n.urlToImage} />
-              <br />
-              <div className="desc">{n.description.toString()}</div>
-              <br />
-              {n.content.toString()}
-              <a href={n.url} target="_blank">
-                Read More
-              </a>
-              <br />
-              <hr></hr>
-          </div>
-          );
-        })}
-      </div>
-      
-      <div className={`load ${loading ? "hide" : ""}`} >
-        <form onSubmit={handleSubmit2}>
-          <input className="loadMore"
-            type="submit"
-            value="Load More Articles"/>
-        </form>
-        <br />
-      </div>
-
-      <div className={`${loading ? "hide" : ""}`} >
-        <p className="footer">Designed and created by <a href="https://allaboutshivapandey.web.app/" target="_blank">Shiva Pandey</a></p>
-        </div>
-    </div>
+      </>
+    </ThemeProvider>
   );
 };
 

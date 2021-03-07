@@ -1,17 +1,49 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./font/AkayaTelivigala-Regular.ttf'); /* IE9 Compat Modes */
+  }
+
+
 *{
-  background: linear-gradient(15deg,#fcbe6da6 50%, #69b1fde1 50.1%) no-repeat fixed;
+    background: linear-gradient(15deg,#fcbe6da6 50%, #69b1fde1 50.1%) no-repeat fixed;
     padding: .6%;
+    font-family: 'Open Sans';
 }
+
+
+
 .heading{
-    font-size: 280%;
+  font-family: 'Akaya+Telivigala';
+    color: rgb(255, 0, 0);
+    width: 311px;
+    font-size: 300%;
     position: relative;
+    cursor: url('https://www.rouvre.com/themes/default/images/cursor-close.png'), crosshair;
+    text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 }
+.heading img{
+  width: 50px
+}
+
 .loadMore{
   background-color: black;
   color: white;
 }
 input{
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     background-color: white;
     border-radius: 20px;
     outline: none;
@@ -22,12 +54,13 @@ input{
 
 }
 button{
-    color: white;
+    color: rgb(0, 0, 0);
+    border-radius: 8px;
     float: right;
     padding: 8px;
-    background-color: black;
     border: 2px solid white;
 }
+
 .title{
   word-wrap: break-word;
     padding: 15px;
@@ -46,7 +79,7 @@ p {
   font-size: 2vmin;
 }
 
-img{
+.data img{
     border: 3px solid white;
     display: block;
     margin-left: auto;
@@ -90,7 +123,6 @@ h1{
     text-align: center;
     padding: 8px;
     text-decoration: none;
-    font-size:  40%;
   }
   .desc{
     word-wrap: break-word;
@@ -134,7 +166,7 @@ h1{
   }
 
 .content a{
-    background: none;
+    background: transparent;
 }
 
 .footer, .footer a{
@@ -176,37 +208,44 @@ h1{
 
 
 
-
+button{
+  cursor: pointer;
+}
 
 .dropbtn {
-  background-color: #00fa08;
-  color: white;
+  width: 100%;
+  height: auto;
+  background-color: red;
+  color: black;
   padding: 2px;
   font-size: 100%;
   border: none;
+  cursor: pointer;
 }
 
 .dropdown {
+  font-size: 90%;
   display: inline-block;
 }
 
 .dropdown-content {
+  cursor: pointer;
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
 .dropdown-content a {
+  border: 2px solid red;
   color: black;
   padding: 12px 16px;
   text-decoration: none;
-  display: block;
+  display: inline-block;
 }
 
 .dropdown-content a:hover {background-color: #ddd;}
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: white;}
